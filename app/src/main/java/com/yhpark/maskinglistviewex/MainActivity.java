@@ -2,11 +2,10 @@ package com.yhpark.maskinglistviewex;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -40,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnEditorAction(R.id.etMessage)
-    public boolean onEditorAction(TextView view, int state, KeyEvent event) {
-        if (event.equals(KeyEvent.ACTION_DOWN)) {
-            ibDone.performClick();
+    public boolean onEditorAction(int actionId) {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            inputChat();
         }
 
         return false;
@@ -50,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.ibDone)
     public void onClick() {
+        inputChat();
+    }
+
+    private void inputChat() {
         if ("".equals(etMessage.getText().toString())) {
             Toast.makeText(this, "edittext is empty!", Toast.LENGTH_SHORT).show();
         } else {
@@ -57,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
 
             etMessage.setText("");
+            mlvMessage.getListView().setSelection(adapter.getCount() - 1);
         }
     }
 }
