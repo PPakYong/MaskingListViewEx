@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MaskingListViewEx</string>
+
+    <string name="hint_edittext">댓글을 입력하세요...</string>
+</resources>
